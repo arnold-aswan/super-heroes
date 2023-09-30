@@ -24,7 +24,7 @@ class Power(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
-    description = db.Column(db.String, nullable = False)
+    description = db.Column(db.String, nullable=F)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
     
@@ -37,6 +37,7 @@ class Power(db.Model, SerializerMixin):
       
       if len(description) < 20:
           raise ValueError("Description must be atleast 20 characters long")
+      return description
             
     
 class HeroPowers(db.Model, SerializerMixin):        
@@ -55,7 +56,7 @@ class HeroPowers(db.Model, SerializerMixin):
     
     @validates('strength')
     def validate_strength(self, key, strength):
-        if strength != 'Strong' or strength != 'Weak' or strength != 'Average':
+        if strength not in ['Strong', 'Weak' ,'Average']:
             raise ValueError("Strength must be Strong, Weak or Average")
         return strength  
             
