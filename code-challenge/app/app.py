@@ -3,7 +3,8 @@
 from flask import Flask, make_response
 from flask_migrate import Migrate
 
-from models import db, Hero
+from app.models import db, Hero, Power
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
