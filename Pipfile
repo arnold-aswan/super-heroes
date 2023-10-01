@@ -8,6 +8,7 @@ flask = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
 sqlalchemy-serializer = "*"
+gunicorn = "*"
 
 [dev-packages]
 
