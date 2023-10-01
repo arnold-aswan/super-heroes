@@ -17,6 +17,13 @@ class Hero(db.Model, SerializerMixin):
     
     powers = db.relationship('HeroPowers', back_populates='hero')
     
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "name": self.name,
+            "super_name": self.super_name,
+        }
+    
     
 class Power(db.Model, SerializerMixin):
     __tablename__ = 'powers'
@@ -29,6 +36,14 @@ class Power(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
     
     heroes = db.relationship('HeroPowers', back_populates='power')
+    
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "name": self.name,
+            "description": self.description,
+        }
+    
     
     @validates('description')
     def validate_description(self, key, description):
@@ -53,6 +68,14 @@ class HeroPowers(db.Model, SerializerMixin):
     
     power = db.relationship('Power', back_populates='heroes')
     hero = db.relationship('Hero', back_populates='powers')
+    
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "strength": self.strength,
+            "hero_id": self.hero_id,
+            "power_id": self.power_id,
+        }
     
     @validates('strength')
     def validate_strength(self, key, strength):
