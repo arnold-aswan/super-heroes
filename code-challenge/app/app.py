@@ -84,7 +84,7 @@ def power_by_id(id):
 
 @app.route('/hero_powers', methods=['POST'])
 def post_hero_powers():
-    data = request.form
+    data = request.get_json()
     new_hero_power = HeroPowers(
         strength = data["strength"],
         power_id = data["power_id"],
