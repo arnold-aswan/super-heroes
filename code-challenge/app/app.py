@@ -23,6 +23,7 @@ def heroes():
     heroes = []
     for hero in Hero.query.all():
         hero_dict = {
+            "id": hero.id,
             "name":hero.name,
             "super_name": hero.super_name,
         }
