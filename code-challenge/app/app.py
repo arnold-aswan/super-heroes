@@ -2,6 +2,7 @@
 
 from flask import Flask, make_response, jsonify, request
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 from models import db, Hero, Power, HeroPowers
 
@@ -9,7 +10,7 @@ from models import db, Hero, Power, HeroPowers
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+CORS(app)
 migrate = Migrate(app, db)
 
 db.init_app(app)
@@ -71,7 +72,7 @@ def power_by_id(id):
     elif request.method == 'PATCH':
     
         for attr in request.form:
-            setattr(power, attr, request.form.get(attr))
+            setattr(power, attr, request.get_json(attr))
         
         try:
             db.session.add(power)
