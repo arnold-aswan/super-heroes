@@ -70,9 +70,10 @@ def power_by_id(id):
         return response
     
     elif request.method == 'PATCH':
-    
+        power = Power.query.get(int(id))
+        
         for attr in request.form:
-            setattr(power, attr, request.get_json(attr))
+            setattr(power, attr, request.form.get(attr))
         
         try:
             db.session.add(power)
